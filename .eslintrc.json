@@ -1,0 +1,44 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["*/lib/db/real*", "*lib/db/real*"],
+            "importNames": ["*"],
+            "message": "Decoy zone must never import from lib/db/real. Use lib/db/decoy only."
+          },
+          {
+            "group": ["*/lib/auth/session*", "*lib/auth/session*"],
+            "importNames": ["*"],
+            "message": "Decoy zone must never import from lib/auth/session."
+          }
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["app/(decoy)/**/*", "app/api/internal/**/*"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["*lib/db/real*"],
+                "message": "ISOLATION VIOLATION: Decoy routes cannot import lib/db/real"
+              },
+              {
+                "group": ["*lib/auth/session*"],
+                "message": "ISOLATION VIOLATION: Decoy routes cannot import lib/auth/session"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
