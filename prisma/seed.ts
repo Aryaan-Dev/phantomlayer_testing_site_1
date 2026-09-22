@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { generateCustomers } from '../lib/synthetic/generateCustomers'
 import { generateTransactions } from '../lib/synthetic/generateTransactions'
-import { generateDecoyRecords } from '../lib/synthetic/generateDecoyRecords'
+
 
 const db = new PrismaClient()
 
@@ -17,9 +17,6 @@ async function main() {
   await generateTransactions(db, allAccounts, 20)
   console.log(`✅ Created transactions for ${allAccounts.length} accounts`)
 
-  // 3. Generate decoy records (separate, isolated)
-  await generateDecoyRecords(db)
-  console.log('✅ Created decoy users and backup records')
 
   console.log('\n🎉 Seed complete!')
   console.log('   Demo login: demo@meridianbank.test / MeridianDemo2024!')

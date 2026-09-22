@@ -42,32 +42,3 @@ model Transaction {
   account      Account  @relation(fields: [accountId], references: [id])
 }
 
-// ─── DECOY SCHEMA ──────────────────────────────────────────────────────────────
-// Fully synthetic, logically isolated — no relation to real tables above
-// ISOLATION RULE: Only lib/db/decoy.ts accesses these models
-
-model DecoyUser {
-  id           String   @id @default(cuid())
-  username     String
-  passwordHint String   // fake, plausible-looking — never a real credential
-  role         String   // "admin" | "ops" | "support"
-  createdAt    DateTime @default(now())
-}
-
-model DecoyBackupRecord {
-  id        String   @id @default(cuid())
-  fileName  String
-  sizeBytes Int
-  createdAt DateTime @default(now())
-}
-
-model DecoyInteractionLog {
-  id           String   @id @default(cuid())
-  path         String
-  method       String
-  decoyType    String   // "admin_login" | "internal_api" | "honeytoken" | "db_console"
-  payloadSample String? // truncated, sanitized
-  sourceIp     String?
-  sessionId    String?
-  createdAt    DateTime @default(now())
-}

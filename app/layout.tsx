@@ -18,7 +18,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <!-- staging-ops: /internal-ops?token=stg_8x2k9p4m --> */}
       <body className="min-h-screen bg-neutral-50 font-sans antialiased">
         <SessionWrapper>
           <ToastProvider>
